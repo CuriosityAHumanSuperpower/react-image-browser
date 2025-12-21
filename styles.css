@@ -1,0 +1,51 @@
+/* Styles extracted from index.html to keep the HTML file smaller and easier to edit.
+   This file contains layout, theme (light/dark), modal, and thumbnail rules.
+*/
+:root { --cols: 5; }
+html,body,#root{height:100%;}
+body{padding-bottom:80px;font-family:'Roboto',sans-serif;font-weight:300}
+:root{--navbar-height:56px}
+.navbar{z-index:1030}
+.gallery{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:8px;padding-top:8px}
+/* reserve border space to avoid layout shift when selected; default appears borderless */
+.thumb{width:100%;height:0;padding-bottom:100%;position:relative;overflow:visible;border-radius:6px;background:#f5f5f5;border:4px solid transparent}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:3px}
+.thumb input[type="checkbox"]{display:none}
+.thumb:hover input[type="checkbox"]{display:block}
+.thumb .chk-wrapper{position:absolute;left:6px;top:6px;z-index:2}
+.thumb.selected{border-color:#0d6efd;border-radius:6px}
+/* Dark theme: grayer, less-blue palette */
+body.dark{background:#0f1316;color:#e6eef8}
+body.dark .container, body.dark .alert{background:transparent}
+[data-bs-theme="dark"] body{background:#0f1316;color:#e6eef8}
+[data-bs-theme="dark"] .navbar{background-color:#111417 !important}
+[data-bs-theme="dark"] .folder-title{background:#0f1316;border-bottom-color:#2b2f33}
+[data-bs-theme="dark"] .thumb{background:#0e1113;border-color:transparent}
+[data-bs-theme="dark"] .fixed-footer{background:#0e1113;border-top-color:#232629;color:#e6eef8}
+[data-bs-theme="dark"] .list-group-item{background:#0e1113;color:#dfe8ef;border-color:#2b2f33}
+[data-bs-theme="dark"] .list-group-item.active{background:#2f3940;color:#fff}
+[data-bs-theme="dark"] .thumb.selected{border-color:#7c8a90}
+/* default modal content for light theme (modal is portalled to body, so ensure default is set) */
+.modal-content{background:#fff;color:inherit;border-color:#ddd}
+/* Ensure portalled UI (modal, offcanvas, dropdowns) uses Roboto Light */
+.modal, .modal *, .offcanvas, .offcanvas *, .dropdown-menu, .dropdown-menu * {
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 300 !important;
+}
+[data-bs-theme="dark"] .modal-content{background:#0e1113;color:#e6eef8;border-color:#232629}
+.folder-title{margin:0 0 8px;padding:8px 0;margin-top:16px;position:sticky;top:var(--navbar-height);background:#fff;z-index:1000;border-bottom:1px solid #e9ecef}
+body.dark .folder-title{background:#0b1220;border-bottom-color:#444}
+.fixed-footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #ddd;padding:6px 10px;z-index:1050;font-size:0.85rem}
+.folder-link{cursor:pointer}
+@media (max-width:1200px){:root{--cols:4}} 
+@media (max-width:992px){:root{--cols:3}} 
+@media (max-width:768px){:root{--cols:2}} 
+@media (max-width:480px){:root{--cols:1}} 
+/* Fullscreen modal image layout: center and allow image to fill width or height */
+.modal-image-body{display:flex;align-items:center;justify-content:center;padding:0 1rem}
+.modal-image-body img{max-width:100%;max-height:calc(100vh - var(--navbar-height) - 56px);object-fit:contain}
+.modal-image-wrap{position:relative;width:100%;display:flex;align-items:center;justify-content:center}
+.modal-image-wrap .nav-zone{position:absolute;top:0;bottom:0;width:50%;z-index:3}
+.modal-image-wrap .nav-zone.left{left:0}
+.modal-image-wrap .nav-zone.right{right:0}
+.modal-image-wrap .nav-zone:hover{cursor:pointer;background:rgba(255,255,255,0.02)}
