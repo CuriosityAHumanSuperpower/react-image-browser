@@ -47,6 +47,8 @@ download, copy, add images (+ drag and drop opition) + move to
 on "move to" open a modal, recap the selected images, display the folder (tree) and allow to navigate through and select destination folder
 equivalent on mac
 rotate image (this should be applyed on the image locally if possible, if not save change/info on db)
+adding, deleting, creating tags and apply to one or several images
+if copy of local images is not possible do not download by default
 1.2.3 design
 uses icons rather than emoji : https://icons.getbootstrap.com/ ; npm i bootstrap-icons
 do not user button with border. 
@@ -67,6 +69,13 @@ if not last open folder or not accessible/findable display the message
 ask to create a new "collection" and settings on the database
 ask param option (see "settings" section)
 1.2.4.2 settings
+user info, +
+a dangerous area (red) to delete a collection, all the database info, and or the user account
+reset password 
+add auth methode (google sso)
+add mutifactore auth (I never implemented such thing)
+create 10 recup OTP (save in dB but after) + modal displya + copy to clipboard button, after modal is closed never show them again
+and option on the collection (related to a main folder of images). Duplicate for several collections if there are 
 option to display "heic" images with a placeholder 
 option to try to display "heic" with a frontend converter
 option to automatically convert heic images into .jpg and and the convertion in ./heic-to-jpg folder 
@@ -88,6 +97,14 @@ for all images that has a localisation, display on a map
 it should be possible to zoom and unzoom
 click on a point, divide the screen in two, one side for the map (right) and the images in the displayed area (on the left)
 on this page the functionanlity/action on the images should be same as discribe previously 
+1.2.4.5 sign in, up, and off 
+in nav bar 
+a dedicated page except for sign off
+sign off only in nav bar and replaceing sign in/up
+1.2.4.5, admin 
+admin role only, 
+see all user, creation date, if is active, actions such as inactive, delete, reset password 
+display in table
 1.2.5 notification 
 handle backend/frontend notification to the user 
 https://react-bootstrap.github.io/docs/components/toasts/
@@ -95,6 +112,8 @@ do not use to much color (green, orange, red) and pale
 top right corner 
 button do close 
 disapear after ~10 s (what would you recommand ?)
+1.2.6 searchbar (backend request) 
+in navbar 
 1.3 backend 
 1.3.1 general 
 express js (mjs)
@@ -102,9 +121,23 @@ server should be sectured : rateLimite, helmet, xssClean, hpp  and other relevan
 how to handle sensivive info such as db credential. dotenv is not recommanded but it I do not have subscribt to any hostting yet what can I do ? 
 1.3.2 database 
 1.3.2.1 reflexions
-I was wondering what best 
+I was wondering what best the best db to use. I like graphQL because of the esay way to query only the info that you requises without "hardcoding" it. Yet for an app open to the web, I do not feel confortable by the way to opimize securtity by not allowing to much, and how auth and authorization are handled. 
+I do like noSQL db such as MongodB. 
+There is the possibility to have a free 500mo db 
+I assume that mongoose and https://mongoosejs.com/docs/api/aggregate.html could be a good solution
+please recommand anything as long as it is free and agumented (maybe dynamoDB of amazon ?, with I never used)
 1.3.2.2 models 
-
+- user : such as in this example I did few years ago https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/models/User.js, please feel free tu ajustes ou prpose better approches (secure and performant)
+mutifactor auth, 
+google sso and all necessary variables
+role : admin, enduser 
+- image : paths array (if the image is in several folders), unique ID, unique hash of the image in case it exists elsewhere but with differente metadata and name, metadata, localisation (lat, lad), person ID + localisation x, y on the image, owner(userID), creationDate, modificationDate of the image and in the db, sharedWithID (userIDs) , other relevant info regarding the all description
+- collection : unique ID, userID, main folder, settings
+- person : name, unique ID, user/ownerID (me), list of imagesIDs
+- tags
+- backlistToken, auth should be based on JWT (else do you have better recommendation). Backlist manually disable token
+regarding links between object like (person <> image), I let you chose and argument, the better apporche One-to-many, Many-to-many, and what indexes should be added to optimaze research
+maybe index images name, folder, person name, 
 1.3.3 middlewares
 authenfication
 authorization : example (https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/middlewares/authorization.js), please file free to update and propose better and securer solution
@@ -115,10 +148,24 @@ for dev. be as precises as possible
 for prod and client notification, be concise but relevant so that the user can know if s.he did something wrong 
 on prod and client notification, be carefull not to give sensitive info, beware of security and app integrity
 1.3.4 routes, functionalities/controllers
-1.3.2 
-10. Open questions 
+crud user, image, collection, tag
+authenfication,
+admin
+on images, use aggregate to get data (if it is more relevent way)
+controllers should be adapted from the functionnalities describ throughout this all doc
+route : handle routes parsing a config json/object. I do not want mutiple route files 
+1.3.10 other 
+handle email on creation account, activation, and password reset 
+handle mutifactor authenfication, email or third party app surch as google auth
+no phone second factor auth
+create 10 recup OTP should not be able to get them from db but onlyone on creation
+add params in frontend URL and handle it on back end
+apply if relevant recommandation of https://expressjs.com/en/advanced/best-practice-performance.html
+10. Open questions
+how to make this app autonomous on double click on a desktop icon for instance and without having to run locally 2 servers (back, and front) if the enduser is not a developer
 how to handle two paradigms : (1) local images folder that can be changed by the user and (2) persistant database. For instance what happen if a folder has been selected, this folder is different from the previous one that has been mapped in the db, will the db be reset? new collection created ? what if some pictures are the same in the db and the previous folder ?
 how to add virtualization for even larger folders.
 integration with pcloud, https://docs.pcloud.com/
 adding google authentification 
 how to go futher and propose an comercialisation of the app (integrated with pcloud, https://docs.pcloud.com/); how to handle payments, account, security, premiums, legal aspect (usage and GDPR), jigh rank on browser search engine, a simple and catchy name and so on
+regarding GDPR, maybe propose some admin addtionnal functionanlyt to help handle and automate relevant actions 
