@@ -1,11 +1,3 @@
-# IMAGE MANAGER APPLICATION — MASTER PROMPT (v2)
-
-This document is a **complete, autonomous, and production-grade prompt**.
-It integrates **all missing requirements, constraints, and reflections** from `prompt_draft.txt`
-into the reviewed and structured version.
-
----
-
 # IMAGE MANAGER APPLICATION — MASTER PROMPT
 
 ## GLOBAL RULES
@@ -51,29 +43,29 @@ into the reviewed and structured version.
 ## FRONTEND
 
 ### Basics
-- React
+- React front-end 
 - Starting from `index.html` (no server, limited)
 - Component-based architecture
 - Lazy loading on scroll
 - Optional unloading of off-screen images
 - Themes: dark, light, system, emerald green
-- All cction button appearance : round icon button  
+- All action button appearance : round icon button  
   https://icons.getbootstrap.com/icons/three-dots-vertical/
 
 ---
 
-### Functionalities (front-end)
+### Functionalities
 - File-explorer keyboard navigation
 - Context menus (right-click / long-press)
 - Move-to modal with folder tree
 - Rotation (local if possible, DB otherwise)
 - Tag CRUD
-- Drag & drop import
+- Drag & drop import (copy locally if applicable)
 
 ---
 
 ### Design
-- Icons only  
+- Icons only (rather than emoji) and text
   https://icons.getbootstrap.com/  
   `npm i bootstrap-icons`
 - No bordered buttons
@@ -101,7 +93,7 @@ into the reviewed and structured version.
     - Settings
     - Admin
 - Stucked on the right:
-    - Auth  
+    - Auth (sign in/up or log out)
 - Search bar in between 
 
 ---
@@ -130,7 +122,7 @@ into the reviewed and structured version.
 - User, example: 
   https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/models/User.js. Provide better solution if there is.
 - Image
-- Collection: FILL INFORMAITON FROM PROMT_DRAFT.TXT
+- Collection = folder root + associated settings
 - Person
 - Tags
 
@@ -180,7 +172,7 @@ Indexes:
 
 ---
 
-## EXTENDED REQUIREMENTS AND DETAILS (INTEGRATED FROM DRAFT)
+## EXTENDED REQUIREMENTS AND DETAILS
 
 ### FRONTEND — DETAILED FUNCTIONALITY
 
@@ -190,15 +182,17 @@ Indexes:
 - Ctrl+C: copy selection (logical copy, not OS if unavailable)
 - Shift + click: range selection
 - Ctrl + click: toggle selection
-- Mac equivalents must be documented
+- Mac equivalents must be implemented if specific configuration required
 
 #### Context Actions
 Available via:
 - Right click (desktop)
 - Long press (mobile)
 - Round “three dots” icon on image or folder
+  - visible, on PC, on image hovering
+  - visible, on mobile, ~transparent 
 
-Actions:
+Actions on folder section of images selection:
 - Download
 - Copy
 - Add images (drag & drop)
@@ -267,7 +261,7 @@ Actions:
     - Auto convert to JPG in `./heic-to-jpg`
   - Current folder mapping (browse & update)
   - Face recognition:
-    - Ask to run in background
+    - Ask to run in background, if app run locally, else on dedicated VM
     - CPU/RAM throttling strategy must be explained
 
 #### People
