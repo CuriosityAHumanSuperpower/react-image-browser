@@ -42,6 +42,8 @@ equivalent on mac
 uses icons rather than emoji : https://icons.getbootstrap.com/;npm i bootstrap-icons
 do not user button with border. 
 On over button background should be a different from general background color but not to much, subtil 
+1.2.3.1 image modal 
+
 1.2.4 pages 
 1.2.4.1 homepage
 display default folder / last open folder (retrive info from db)
@@ -63,7 +65,17 @@ database basic info
 current folder mapped with option to change (browse)
 ask to run facerecognition in the background. I do not know if possible or recommandated depending on the amount of CPU/RAM necessary. How to make sure to keep a minimum to run the PC / phone correctly ? 
 1.3 backend 
+1.3.1 general 
+express js (mjs)
+server should be sectured : rateLimite, helmet, xssClean, hpp  and other relevante one and why ? 
+how to handle sensivive info such as db credential. dotenv is not recommanded but it I do not have subscribt to any hostting yet what can I do ? 
+1.3.2 database 
+1.3.2.1 reflexions 
+1.3.2.2 models 
 
+1.3.3 middlewares
+1.3.4 routes, functionalities/controllers
+1.3.2 
 10. Open questions 
 how to handle two paradigms : (1) local images folder that can be changed by the user and (2) persistant database. For instance what happen if a folder has been selected, this folder is different from the previous one that has been mapped in the db, will the db be reset? new collection created ? what if some pictures are the same in the db and the previous folder ?
 how to add virtualization for even larger folders.
