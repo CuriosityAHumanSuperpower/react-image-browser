@@ -1,8 +1,11 @@
 You're an experience Prompt Engineer and skilled full stack dotenv
 You've been asked to review the following prompt that could be handle by any LLM, correct it, find out inconsitancy, highligh gaps, add recommendations and propose an optimal, complete and autonmous version
-be pratical and professional 
+be pratical and professional
+do not delete exemples
+do not output something less detailled 
+the outptu prompte review should be splitted into phased so I can be handle properly 
+OUTPUT : a text file of the the new efficiante prompt, 
 ---
-PROJECT : PHASE 1
 I need you're help to create an web app. 
 
 0. Prerequisite to your reponse 
@@ -72,8 +75,9 @@ ask param option (see "settings" section)
 user info, +
 a dangerous area (red) to delete a collection, all the database info, and or the user account
 reset password 
-add auth methode (google sso)
-add mutifactore auth (I never implemented such thing)
+add auth options such as
+- google sso 
+add MFA auth : login password + OTP
 create 10 recup OTP (save in dB but after) + modal displya + copy to clipboard button, after modal is closed never show them again
 and option on the collection (related to a main folder of images). Duplicate for several collections if there are 
 option to display "heic" images with a placeholder 
@@ -92,7 +96,7 @@ several face image can be associated to one name (unique). In that cas only disp
 if a person face is clicked, update url with person ID-slug name 
 display a Fluid jumbotron (https://getbootstrap.com/docs/4.0/components/jumbotron/) with the main face picture, the name (editable on click > input), the number of image on with it appears
 bellow, the folders> images diplayed
-1.2.4.4 map 
+1.2.4.4 map
 for all images that has a localisation, display on a map 
 it should be possible to zoom and unzoom
 click on a point, divide the screen in two, one side for the map (right) and the images in the displayed area (on the left)
@@ -113,11 +117,17 @@ top right corner
 button do close 
 disapear after ~10 s (what would you recommand ?)
 1.2.6 searchbar (backend request) 
-in navbar 
+in navbar
+on writing in the searchbar propose suggestions 
 1.3 backend 
 1.3.1 general 
 express js (mjs)
-server should be sectured : rateLimite, helmet, xssClean, hpp  and other relevante one and why ? 
+server should be sectured : rateLimite, helmet, xssClean, hpp  and other relevante one and why ?
+CSP headers
+CSRF protection (if cookies)
+Argon2 for passwords
+Encrypted local DB (SQLCipher / Mongo-at-rest encryption)
+Zero-trust internal API (even in Electron)
 how to handle sensivive info such as db credential. dotenv is not recommanded but it I do not have subscribt to any hostting yet what can I do ? 
 1.3.2 database 
 1.3.2.1 reflexions
@@ -135,9 +145,13 @@ role : admin, enduser
 - collection : unique ID, userID, main folder, settings
 - person : name, unique ID, user/ownerID (me), list of imagesIDs
 - tags
-- backlistToken, auth should be based on JWT (else do you have better recommendation). Backlist manually disable token
+Authenficatio/auth based on JWT or better recommandation 
+Short-lived access token + refresh token rotation OR Token versioning on user document
 regarding links between object like (person <> image), I let you chose and argument, the better apporche One-to-many, Many-to-many, and what indexes should be added to optimaze research
-maybe index images name, folder, person name, 
+maybe index images name, folder, person name, and 
+compound index (ownerId + hash)
+text index for search
+geo index for maps
 1.3.3 middlewares
 authenfication
 authorization : example (https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/middlewares/authorization.js), please file free to update and propose better and securer solution
@@ -153,7 +167,17 @@ authenfication,
 admin
 on images, use aggregate to get data (if it is more relevent way)
 controllers should be adapted from the functionnalities describ throughout this all doc
-route : handle routes parsing a config json/object. I do not want mutiple route files 
+route : handle routes parsing a config json/object. I do not want mutiple route files
+1.3.5 search 
+user mongodb search engine (and add necessary config)
+autocomplete should be activated with fuzzy : {maxEdits : 2}, on persone/people/user name, folder, image file name,  
+1.3.6. 
+Face recognition can be handle locally (on PC), if app launch on it or on a specific VM rather than back end
+for this second option (vm) please provite code and placeholder for config (IP, SSH key, other)
+check if the app si run locally before chosing between local run and VM
+on the setting page of the interface show info, if face recoginition is run locally or remotedly on special VM 
+faces generated during the face regonisation process should be stored locally (or on pcloud)
+note that I have created a python script to do similar thing, please if there is a more accurate way (optimal, more efficiante, better result share it) : https://github.com/CuriosityAHumanSuperpower/person-recognition-on-pictures (private)
 1.3.10 other 
 handle email on creation account, activation, and password reset 
 handle mutifactor authenfication, email or third party app surch as google auth
