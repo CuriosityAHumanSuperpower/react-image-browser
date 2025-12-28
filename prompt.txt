@@ -1,22 +1,29 @@
+You're an experience Prompt Engineer and skilled full stack dotenv
+You've been asked to review the following prompt that could be handle by any LLM, correct it, find out inconsitancy, highligh gaps, add recommendations and propose an optimal, complete and autonmous version
+be pratical and professional 
+---
+PROJECT : PHASE 1
 I need you're help to create an web app. 
 
 0. Prerequisite to your reponse 
 Be factual and straightforward 
 Do not waste time and AI token on compliments 
 Argument choices : why this rather that 
-The output should be code/script and explainationd in a markdown file
+The output should be code/script and explainations/comments in an dedicated markdown file
 the language should be mjs rather than js
-type variable if necessary (mjs)
+type variables (mjs), 
+find the right balance between, code performance, human readable, maintream application and security
 comment functions, and code in general ; not to much except if tricker code 
 do not hesitate to question my statement if there is better recommendation in the literrature/experience. Explain why ? 
+first analyse what already has been produced in index.html, before genearting new code or updating it
 
 1. general description of the app 
 1.1 purpose 
 an app that can display images stored locally, 
 do basic actions on the image, with keyboard, 
-option to scan all the pictures and convert and save .heic to .jpg 
+option to scan all the pictures and convert .heic to .jpg and save 
 option to face regonition on all the picture 
-search bar 
+search bar
 database 
 1.2 front end
 1.2.1 basics 
@@ -24,8 +31,9 @@ react
 start from index.html project : an script that do not requires any server. Easy to use but limited 
 generate a well structured react project and fractionned into smaller components 
 never use pagination but lazy loading on scralling
-for picture maybe unload images above, no more visible. If it is a good practice to not overload the page cache. 
+for picture, on scawnling, maybe unload images not visible anymore, on the screen. If it is a good practice to not overload the page cache. 
 Theme : dark, light, pc default, and emerald green (to be adapted and compatible with both dark and light themes)
+action button should be round with icon https://icons.getbootstrap.com/icons/three-dots-vertical/
 1.2.2 functionalities
 1.2.2.1 
 I would like to be able to navigate through the images as if it was a file explorer : 
@@ -38,12 +46,15 @@ right click on PC or hold on phone + the points round button on an image or near
 download, copy, add images (+ drag and drop opition) + move to 
 on "move to" open a modal, recap the selected images, display the folder (tree) and allow to navigate through and select destination folder
 equivalent on mac
+rotate image (this should be applyed on the image locally if possible, if not save change/info on db)
 1.2.3 design
-uses icons rather than emoji : https://icons.getbootstrap.com/;npm i bootstrap-icons
+uses icons rather than emoji : https://icons.getbootstrap.com/ ; npm i bootstrap-icons
 do not user button with border. 
-On over button background should be a different from general background color but not to much, subtil 
+On over button background should be a different from general background color but not to much, subtil
+for navbar I prefer underline text on over and active page rather than button. By underline, I mean not directly the text (as short cut U) but the bottom of the navbar. It is quite usual on websites.  
 1.2.3.1 image modal 
-
+on click on image a modal opens
+in addition of what as already been implemented on, add option 3 lines buttons (round list : https://icons.getbootstrap.com/icons/list/)
 1.2.4 pages 
 1.2.4.1 homepage
 display default folder / last open folder (retrive info from db)
@@ -79,4 +90,4 @@ how to handle sensivive info such as db credential. dotenv is not recommanded bu
 10. Open questions 
 how to handle two paradigms : (1) local images folder that can be changed by the user and (2) persistant database. For instance what happen if a folder has been selected, this folder is different from the previous one that has been mapped in the db, will the db be reset? new collection created ? what if some pictures are the same in the db and the previous folder ?
 how to add virtualization for even larger folders.
-how to go futher and propose an comercialisation of the app (integrated with pcloud); how to handle payments, account, security, premiums, legal aspect (usage and GDPR), jigh rank on browser search engine, a simple and catchy name and so on
+how to go futher and propose an comercialisation of the app (integrated with pcloud, https://docs.pcloud.com/); how to handle payments, account, security, premiums, legal aspect (usage and GDPR), jigh rank on browser search engine, a simple and catchy name and so on
