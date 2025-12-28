@@ -54,7 +54,11 @@ On over button background should be a different from general background color bu
 for navbar I prefer underline text on over and active page rather than button. By underline, I mean not directly the text (as short cut U) but the bottom of the navbar. It is quite usual on websites.  
 1.2.3.1 image modal 
 on click on image a modal opens
-in addition of what as already been implemented on, add option 3 lines buttons (round list : https://icons.getbootstrap.com/icons/list/)
+in addition of what as already been implemented on, add option 3 lines buttons (round list : https://icons.getbootstrap.com/icons/list/) that can display laterally the following info 
+note that the visibility of latteral info should be memorazid in db, if clicked keep visible or invisible by default for all images (general option)
+show basic metadata info such as, name, path, creation date, modification date, format, localization (lat, lad) + display on a map 
+if click on map, open map page 
+display the face recoginized (round image), on click on the open people/person face filter by the name of the person, and display al related images 
 1.2.4 pages 
 1.2.4.1 homepage
 display default folder / last open folder (retrive info from db)
@@ -66,28 +70,55 @@ ask param option (see "settings" section)
 option to display "heic" images with a placeholder 
 option to try to display "heic" with a frontend converter
 option to automatically convert heic images into .jpg and and the convertion in ./heic-to-jpg folder 
+database basic info 
+current folder mapped with option to change (browse)
+ask to run facerecognition in the background. I do not know if possible or recommandated depending on the amount of CPU/RAM necessary. How to make sure to keep a minimum to run the PC / phone correctly ? 
 1.2.4.3 person/people
 display faces find in images 
+if image of a face recognitioned picture, the image should be round (genearal not only on this page)
 add editable name bellow images 
 on edit name : give option of already existing name (5 max) that updates depending on what is typing. The search engine should be on the backend 
 some actions possible (generic action button (...)) : display all image with this person, rename, delete
 several face image can be associated to one name (unique). In that cas only display one image
-database basic info 
-current folder mapped with option to change (browse)
-ask to run facerecognition in the background. I do not know if possible or recommandated depending on the amount of CPU/RAM necessary. How to make sure to keep a minimum to run the PC / phone correctly ? 
+if a person face is clicked, update url with person ID-slug name 
+display a Fluid jumbotron (https://getbootstrap.com/docs/4.0/components/jumbotron/) with the main face picture, the name (editable on click > input), the number of image on with it appears
+bellow, the folders> images diplayed
+1.2.4.4 map 
+for all images that has a localisation, display on a map 
+it should be possible to zoom and unzoom
+click on a point, divide the screen in two, one side for the map (right) and the images in the displayed area (on the left)
+on this page the functionanlity/action on the images should be same as discribe previously 
+1.2.5 notification 
+handle backend/frontend notification to the user 
+https://react-bootstrap.github.io/docs/components/toasts/
+do not use to much color (green, orange, red) and pale
+top right corner 
+button do close 
+disapear after ~10 s (what would you recommand ?)
 1.3 backend 
 1.3.1 general 
 express js (mjs)
 server should be sectured : rateLimite, helmet, xssClean, hpp  and other relevante one and why ? 
 how to handle sensivive info such as db credential. dotenv is not recommanded but it I do not have subscribt to any hostting yet what can I do ? 
 1.3.2 database 
-1.3.2.1 reflexions 
+1.3.2.1 reflexions
+I was wondering what best 
 1.3.2.2 models 
 
 1.3.3 middlewares
+authenfication
+authorization : example (https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/middlewares/authorization.js), please file free to update and propose better and securer solution
+cathcAsync for better log debugging : https://github.com/CuriosityAHumanSuperpower/LikEat-backend/blob/main/middlewares/catchAsync.js please feel free to propose better solution
+an error and notification handler for both dev. and prod. circonstances
+1.3.4 error and notifications on the frontend
+for dev. be as precises as possible 
+for prod and client notification, be concise but relevant so that the user can know if s.he did something wrong 
+on prod and client notification, be carefull not to give sensitive info, beware of security and app integrity
 1.3.4 routes, functionalities/controllers
 1.3.2 
 10. Open questions 
 how to handle two paradigms : (1) local images folder that can be changed by the user and (2) persistant database. For instance what happen if a folder has been selected, this folder is different from the previous one that has been mapped in the db, will the db be reset? new collection created ? what if some pictures are the same in the db and the previous folder ?
 how to add virtualization for even larger folders.
+integration with pcloud, https://docs.pcloud.com/
+adding google authentification 
 how to go futher and propose an comercialisation of the app (integrated with pcloud, https://docs.pcloud.com/); how to handle payments, account, security, premiums, legal aspect (usage and GDPR), jigh rank on browser search engine, a simple and catchy name and so on
