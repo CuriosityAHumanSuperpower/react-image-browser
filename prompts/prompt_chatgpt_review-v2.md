@@ -6,11 +6,12 @@
 - No compliments or filler
 - Always argue choices: why this instead of that
 - Take examples, URLs, or references into account and challenge them
-- Use Node.js ESM (`.mjs`)
+- Use Node.js ESM (`.mjs`) on front-end and back-end
 - Balance performance, security, maintainability, mainstream practices
 - Comment code only when logic is non-trivial
 - Explicitly say when a requirement is unrealistic or unsafe
 - Analyze existing `index.html` first because it is the base of this project
+- Ensure all third-party dependencies are documented and justified
 
 ---
 
@@ -20,11 +21,13 @@
 - Analyze existing `index.html`
 - Identify reusable vs replaceable elements
 - Decide if a build step (Vite / ESBuild) is required
+- Review `faces_recognition.py` for face detection logic
 
 ### Deliverable
-- react front end app
+- react front end app or next.js if more relevant (your choice, to be argumented)
 - express.js back end app
-- a markdown describing reflexions, choices and roadmap 
+- a markdown describing reflexions, choices and roadmap
+- Updated `faces_recognition.py` with improvements (error handling, performance optimizations) 
 
 ---
 
@@ -87,7 +90,7 @@
 ## PAGES AND NAVBAR
 
 - From right to left: 
-    - Home
+    - Home/images
     - People
     - Map
     - Settings
@@ -114,7 +117,7 @@
 - MongoDB (free tier)
 - Mongoose aggregates  
   https://mongoosejs.com/docs/api/aggregate.html
-- DynamoDB allowed if justified
+- DynamoDB allowed if justified by you (LLM)
 
 ---
 
@@ -146,7 +149,13 @@ Indexes:
 - Auto-detection
 - Settings UI indicator
 - Python example project  
-  https://github.com/CuriosityAHumanSuperpower/person-recognition-on-pictures. Provide better solution if there is.
+  https://github.com/CuriosityAHumanSuperpower/person-recognition-on-pictures
+  - private github folder : see `attachement>faces_recognition.py`
+  - python package 'face_recognition'
+  - Provide better solution if there is.
+- Face recognition should be handled on the backend.
+- Replace the JSON database with MongoDB for storing face recognition data.
+- Store detected faces in a dedicated folder at the root if run locally or on pCloud, not on the backend or frontend server.
 
 ---
 
@@ -232,13 +241,15 @@ Actions on folder section of images selection:
 
 ### PAGES — COMPLETE SPECIFICATION
 
-#### Home
+#### Home/Images 
 - Load last opened folder from DB
 - If unavailable:
   > “No images loaded. Use the picker to select images. Works offline and runs from this file.”
 - Prompt to:
   - Create collection
   - Configure settings
+- Once the folder content has been load, display images as in `index.html`
+- sidebar overcanvas to go through folder tree as in `index.html`
 
 #### Settings
 - User info
@@ -271,13 +282,15 @@ Actions on folder section of images selection:
   - Show images
   - Rename
   - Delete
-- One person ↔ multiple faces, display one representative image
+- One person ↔ multiple faces, display one representative image, the one with better resolution by default
+  - allow user to pick one
 - URL update with personId + slug
-- Jumbotron:
-  - Main face
-  - Editable name
-  - Image count
-  - Folder → image listing
+- specific page for one person selected (URL or cliked): 
+  - Jumbotron:
+    - Main face
+    - Editable name
+    - Image count
+  - main section : Folder section and images listed as in Home/images
 
 #### Map
 - All geo-tagged images
@@ -310,7 +323,7 @@ Actions on folder section of images selection:
 - Top-right
 - Pale colors only (green / orange / red)
 - Close button
-- Auto-dismiss after ~10 seconds (justify recommendation)
+- Auto-dismiss after ~10 seconds (otherwise justify recommendation)
 
 ---
 
@@ -330,6 +343,7 @@ Actions on folder section of images selection:
 Sensitive config:
 - No dotenv in production
 - Use OS keychain / encrypted config file / Electron secure store
+- Recommendation: Use environment variables with a secure vault (e.g., AWS Secrets Manager, HashiCorp Vault) for production deployments.
 
 ---
 
@@ -337,10 +351,12 @@ Sensitive config:
 
 #### Choice Reflection
 - MongoDB preferred (free tier, ecosystem, aggregation)
-- GraphQL pros/cons explained (over-fetching vs attack surface)
-- DynamoDB acceptable if justified
+- DynamoDB or other db acceptable if justified
 
 #### Models (Mandatory Fields)
+
+Non exautive lists bellow. 
+Please add all other relevant fields and explain why (securty, perf, project relevant, etc.).
 
 **User**
 - email
@@ -348,18 +364,20 @@ Sensitive config:
 - roles (admin / user)
 - MFA config
 - Google SSO IDs
-- tokenVersion
+- tokenVersion (jwt)
+- isActive
 
 **Image**
 - id
-- hash (unique)
+- hash (image uniqueness)
 - paths[]
 - metadata
 - GPS
-- faces (personId + x/y)
+- faces[{personId, x/y position on the image}]
 - ownerId
-- sharedWith[]
 - timestamps
+- imageExtension
+- tagsID[]
 
 **Collection**
 - id
@@ -370,13 +388,13 @@ Sensitive config:
 **Person**
 - id
 - name
-- ownerId
+- isMe : true, if the person is the current user. 
 - imageIds[]
 
 **Tags**
 - id
 - name
-- ownerId
+- createdBy : userID
 
 Indexes:
 - compound (ownerId + hash)
@@ -386,10 +404,10 @@ Indexes:
 Auth:
 - JWT
 - Short-lived access token
-- Refresh rotation OR token versioning (justify)
+- Refresh rotation OR token versioning (to be justify by you/LLM)
 
 Relationships:
-- Person ↔ Image: many-to-many (justify)
+- Person ↔ Image: many-to-many (to be justify by you/LLM)
 - Index strategy explained
 
 ---
@@ -404,6 +422,7 @@ Relationships:
 - Auth
 - Admin
 - Aggregation for image queries
+- API documentation using Swagger or similar tools
 
 ---
 
@@ -414,8 +433,9 @@ Relationships:
 - Targets:
   - person
   - user
+  - tag
   - folder
-  - filename
+  - image filename
 
 ---
 
@@ -428,14 +448,29 @@ Relationships:
 - UI indicator (local vs VM)
 - Faces stored locally or pCloud
 - Review provided Python repo and propose better approach
+- Optimize face recognition performance for large image collections
+
+---
+
+## TESTING
+- Provide tests, either code or markdown, such as: 
+  - Unit tests for individual components and functions
+  - Integration tests for API endpoints and database interactions
+  - End-to-end tests for user flows (e.g., image upload, face recognition)
+- Use testing frameworks like Jest for React and Mocha/Chai for Express.js
 
 ---
 
 ## EXTENDED OPEN QUESTIONS
 - Desktop single-click (Electron / Tauri)
+  - At first, the app (frontend and backend) should be executable locally and on a web hoster that can run Node.js (free tier); no Docker so far.
+  - Future consideration: Electron or Tauri for desktop packaging.
 - Folder ↔ DB divergence handling
+  - Strategy for syncing file system changes with the database.
 - Duplicate reconciliation
+  - Detect and handle duplicate images based on hash or metadata.
 - Large-folder virtualization
+  - Implement lazy loading and pagination for large image collections.
 - pCloud integration
 - Monetization:
   - payments
