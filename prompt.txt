@@ -1,0 +1,70 @@
+I need you're help to create an web app. 
+
+0. Prerequisite to your reponse 
+Be factual and straightforward 
+Do not waste time and AI token on compliments 
+Argument choices : why this rather that 
+The output should be code/script and explainationd in a markdown file
+the language should be mjs rather than js
+type variable if necessary (mjs)
+comment functions, and code in general ; not to much except if tricker code 
+do not hesitate to question my statement if there is better recommendation in the literrature/experience. Explain why ? 
+
+1. general description of the app 
+1.1 purpose 
+an app that can display images stored locally, 
+do basic actions on the image, with keyboard, 
+option to scan all the pictures and convert and save .heic to .jpg 
+option to face regonition on all the picture 
+search bar 
+database 
+1.2 front end
+1.2.1 basics 
+react 
+start from index.html project : an script that do not requires any server. Easy to use but limited 
+generate a well structured react project and fractionned into smaller components 
+never use pagination but lazy loading on scralling
+for picture maybe unload images above, no more visible. If it is a good practice to not overload the page cache. 
+Theme : dark, light, pc default, and emerald green (to be adapted and compatible with both dark and light themes)
+1.2.2 functionalities
+1.2.2.1 
+I would like to be able to navigate through the images as if it was a file explorer : 
+ctre+A, 
+esc,
+ctrl+C,
+shift+ select images between two selections
+ctrl + (un)select images one by one 
+right click on PC or hold on phone + the points round button on an image or near the title of the folder to display actions options :
+download, copy, add images (+ drag and drop opition) + move to 
+on "move to" open a modal, recap the selected images, display the folder (tree) and allow to navigate through and select destination folder
+equivalent on mac
+1.2.3 design
+uses icons rather than emoji : https://icons.getbootstrap.com/;npm i bootstrap-icons
+do not user button with border. 
+On over button background should be a different from general background color but not to much, subtil 
+1.2.4 pages 
+1.2.4.1 homepage
+display default folder / last open folder (retrive info from db)
+if not last open folder or not accessible/findable display the message 
+"No images loaded. Use the to pick images. Works offline and runs from this file."
+ask to create a new "collection" and settings on the database
+ask param option (see "settings" section)
+1.2.4.2 settings
+option to display "heic" images with a placeholder 
+option to try to display "heic" with a frontend converter
+option to automatically convert heic images into .jpg and and the convertion in ./heic-to-jpg folder 
+1.2.4.3 person/people
+display faces find in images 
+add editable name bellow images 
+on edit name : give option of already existing name (5 max) that updates depending on what is typing. The search engine should be on the backend 
+some actions possible (generic action button (...)) : display all image with this person, rename, delete
+several face image can be associated to one name (unique). In that cas only display one image
+database basic info 
+current folder mapped with option to change (browse)
+ask to run facerecognition in the background. I do not know if possible or recommandated depending on the amount of CPU/RAM necessary. How to make sure to keep a minimum to run the PC / phone correctly ? 
+1.3 backend 
+
+10. Open questions 
+how to handle two paradigms : (1) local images folder that can be changed by the user and (2) persistant database. For instance what happen if a folder has been selected, this folder is different from the previous one that has been mapped in the db, will the db be reset? new collection created ? what if some pictures are the same in the db and the previous folder ?
+how to add virtualization for even larger folders.
+how to go futher and propose an comercialisation of the app (integrated with pcloud); how to handle payments, account, security, premiums, legal aspect (usage and GDPR), jigh rank on browser search engine, a simple and catchy name and so on
