@@ -15,4 +15,7 @@ export default defineConfig({
   esbuild: {
     loader: 'jsx',
   },
+  build: {
+    sourcemap: false,
+  },
 });
