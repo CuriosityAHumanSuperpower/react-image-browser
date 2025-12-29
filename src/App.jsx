@@ -13,24 +13,13 @@ import Auth from './pages/Auth';
 import Notification from './components/Notification';
 
 function App() {
-  const { notifications, removeNotification } = useContext(NotificationContext);
-
   return (
     <ThemeProvider>
       <NotificationProvider>
         <Router>
           <div>
             <Navbar />
-            <div className="notification-container">
-              {notifications.map((notification) => (
-                <Notification
-                  key={notification.id}
-                  message={notification.message}
-                  type={notification.type}
-                  onClose={() => removeNotification(notification.id)}
-                />
-              ))}
-            </div>
+            <NotificationContainer />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/people" element={<People />} />
@@ -45,5 +34,22 @@ function App() {
     </ThemeProvider>
   );
 }
+
+const NotificationContainer = () => {
+  const { notifications, removeNotification } = useContext(NotificationContext);
+
+  return (
+    <div className="notification-container">
+      {notifications.map((notification) => (
+        <Notification
+          key={notification.id}
+          message={notification.message}
+          type={notification.type}
+          onClose={() => removeNotification(notification.id)}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default App;
